@@ -79,10 +79,10 @@ if(tcgetattr(serial_port, &tty) != 0) {
 
   // Here we assume we received ASCII data, but you might be sending raw bytes (in that case, don't try and
   // print it to the screen like this!)
-  //printf("Read %i bytes. Received message: %s", num_bytes, read_buf);
   FILE *fp;
   fp = fopen("test.txt","w");
-  printf((char*)read_buf);
+  //printf((char*)read_buf);
+  printf("Read %i bytes. Received message: %s", num_bytes, read_buf);
   fputs((char*)read_buf,fp);
   close(serial_port);
   return 0; // success

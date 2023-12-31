@@ -1,7 +1,6 @@
 all:
-	gcc -o prog 1.cpp
+	g++ -o serial serial.cpp -lCppLinuxSerial
 
 
 delete:
-	rm prog
-	rm main
+	rm serial
