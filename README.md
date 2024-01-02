@@ -1,7 +1,7 @@
 1. Install CppLinuxSerial library:
 https://github.com/gbmhunter/CppLinuxSerial
-    git clone https://github.com/gbmhunter/CppLinuxSerial
-    echo "installing CppLinuxSerial"
+    \ngit clone https://github.com/gbmhunter/CppLinuxSerial
+    \necho "installing CppLinuxSerial"
     cd CppLinuxSerial
     mkdir build
     cd build
