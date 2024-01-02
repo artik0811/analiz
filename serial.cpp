@@ -10,6 +10,8 @@ float avg_s;//среднекважратичное отклонение
 float avg;//среднее значение амплитуды
 std::vector <uint8_t> readData;
 SerialPort serialPort("/dev/ttyACM0", BaudRate::B_115200, NumDataBits::EIGHT, Parity::NONE, NumStopBits::ONE);
+std::ofstream out;
+
 
 float amplitudas(char first_byte, char second_byte)
 {
@@ -17,20 +19,17 @@ float amplitudas(char first_byte, char second_byte)
   uint16_t data = val & 0b0000011111111111;
   uint16_t index = (val & 0b1111100000000000) >> 11;
   float amplitude = (10.0 * 80.0 - data) / 10.0;
-  std::cout << "Bytes: " << first_byte << "  " << second_byte << "   |   " << "Index: " << index << "    |    Ampltude: " << amplitude  << std::endl;
+  out << "Index: " << index << "    |    Ampltude: " << amplitude  << std::endl;
   return amplitude;
 }
 
 void readFromAnalizator()
 {
-  std::ofstream out;
-  out.open("test.txt");
   while (readData.size()<200)
     {
 	    serialPort.ReadBinary(readData);
     }
 	serialPort.Close();
-    out.close();
 }
 
 void expRunningAverageAdaptive(float *amplitude,int size) 
@@ -44,8 +43,6 @@ void expRunningAverageAdaptive(float *amplitude,int size)
     amplitude[i] += (amplitude[i + 1] - amplitude[i]) * k;
   }
 }
-
-
 
 void groza()
 {
@@ -100,5 +97,7 @@ void loop()
     analiz(amplitudes, size);
 }
 int main() {
+  out.open("test.txt");
     loop();
+    out.close();
 }
